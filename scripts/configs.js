@@ -1,3 +1,5 @@
+import { MeshWithCatalogService, MeshWithCommerce } from './apiMeshConfigs.js';
+
 /**
  * This function calculates the environment in which the site is running based on the URL.
  * It defaults to 'prod'. In non 'prod' environments, the value can be overwritten using
@@ -48,6 +50,13 @@ const getConfigForEnvironment = async (environment) => {
  * @returns {Promise<string|undefined>} - The value of the configuration parameter, or undefined.
  */
 export const getConfigValue = async (configParam, environment) => {
+  if (configParam === 'commerce-endpoint') {
+    return MeshWithCatalogService;
+  }
+  if (configParam === 'commerce-core-endpoint') {
+    return MeshWithCommerce;
+  }
+
   const env = environment || calcEnvironment();
   const configJSON = await getConfigForEnvironment(env);
   const configElements = JSON.parse(configJSON).data;
