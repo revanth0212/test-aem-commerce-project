@@ -1,4 +1,4 @@
-import { MeshWithCatalogService, MeshWithCommerce } from './apiMeshConfigs.js';
+import { MeshWithCommerce } from './apiMeshConfigs.js';
 
 /**
  * This function calculates the environment in which the site is running based on the URL.
@@ -51,7 +51,7 @@ const getConfigForEnvironment = async (environment) => {
  */
 export const getConfigValue = async (configParam, environment) => {
   if (configParam === 'commerce-endpoint') {
-    return MeshWithCatalogService;
+    return MeshWithCommerce;
   }
   if (configParam === 'commerce-core-endpoint') {
     return MeshWithCommerce;
