@@ -15,6 +15,7 @@ import { loadFragment } from '../fragment/fragment.js';
 // TODO: Following two imports added for demo purpose (Auth Drop-In)
 import renderAuthCombine from './renderAuthCombine.js';
 import { renderAuthDropdown } from './renderAuthDropdown.js';
+import getAnnouncement from './api/getAnnouncement.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -277,9 +278,18 @@ export default async function decorate(block) {
   toggleMenu(nav, navSections, isDesktop.matches);
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
 
+  const annoucement = await getAnnouncement();
+
+  const annoucementHTML = document.createRange().createContextualFragment(`
+  <div class="announcement-wrapper">
+      <p>${annoucement}</p>
+  </div>
+  `);
+
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
+  navWrapper.append(annoucementHTML);
   block.append(navWrapper);
 
   // TODO: Following statements added for demo purpose (Auth Drop-In)
